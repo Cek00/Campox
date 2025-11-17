@@ -1,0 +1,67 @@
+[
+    {   
+        "uuid": "f8a0bd2e-6866-4e96-9acb-3972e3901ad5",
+        "name": "Angy",
+        "lastName": "Ariza",
+        "email": "admin@gmail.com",
+        "phoneNumber": 3154456776,
+        "adress": "avenida 1",
+        "birthDate": "1995-05-15",
+        "isActive": true,
+        "username": "angy12",
+        "password": "Angypao12_",
+        "roles": "Admin"
+    },
+    {   
+        "uuid": "2387f1a9-0563-42cc-a39d-b89e05140d07",
+        "name": "Angie",
+        "lastName": "Sierra",
+        "email": "angie@gmail.com",
+        "phoneNumber": 3151656776,
+        "adress": "avenida 5",
+        "birthDate": "1997-02-23",
+        "isActive": true,
+        "username": "angie11",
+        "password": "Angiesierra1_",
+        "roles": "Admin"
+    },
+    {   
+        "uuid": "5d662d4c-8211-423d-9c80-b3cf416b0f12",
+        "name": "Carolina",
+        "lastName": "Reyes",
+        "email": "carolina@gmail.com",
+        "phoneNumber": 3125568732,
+        "adress": "avenida 12",
+        "birthDate": "1998-09-14",
+        "isActive": true,
+        "username": "carolina34",
+        "password": "caroreyes23_",
+        "roles": "User"
+    },
+    {   
+        "uuid": "34f2c606-a8ec-42eb-a07c-3e195881ecb6",
+        "name": "Laura",
+        "lastName": "Rodriguez",
+        "email": "laura@gmail.com",
+        "phoneNumber": 3125577732,
+        "adress": "avenida 3",
+        "birthDate": "1999-12-24",
+        "isActive": true,
+        "username": "laura22",
+        "password": "laurodriguez22_",
+        "roles": "User"
+    },
+    {   
+        "uuid": "2b93f873-23bb-4913-b9c6-746bdd841fb8",
+        "name": "Stefany",
+        "lastName": "Gongora",
+        "email": "stefany@gmail.com",
+        "phoneNumber": 3125571832,
+        "adress": "avenida 9",
+        "birthDate": "1996-07-10",
+        "isActive": true,
+        "username": "stefany14",
+        "password": "stefgongora07_",
+        "roles": "User"
+    }
+]
