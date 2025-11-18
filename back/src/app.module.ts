@@ -11,6 +11,7 @@ import { CredentialsEntity } from './entities/credentials.entity';
 import { CredentialModule } from './credential/credential.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
     imports: [
@@ -27,6 +28,7 @@ import { UsersModule } from './users/users.module';
         AuthModule,
         UsersModule,
         CredentialModule,
+        PaymentModule,
         JwtModule.register({
             global: true,
             secret: process.env.JWT_SECRET,
