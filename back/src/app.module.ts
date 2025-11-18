@@ -10,6 +10,7 @@ import { UsersEntity } from './entities/users.entity';
 import { CredentialsEntity } from './entities/credentials.entity';
 import { CredentialModule } from './credential/credential.module';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
     imports: [
@@ -25,11 +26,13 @@ import { AuthModule } from './auth/auth.module';
         SeedModule,
         AuthModule,
         CredentialModule,
+        ProductsModule,
         JwtModule.register({
             global: true,
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: '9h' },
         }),
+        ProductsModule,
     ],
     controllers: [AppController],
     providers: [AppService, DataLoaderUsers],
