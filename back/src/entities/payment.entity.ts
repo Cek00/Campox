@@ -10,7 +10,6 @@ import {
 import { Order } from './order.entity';
 import { PaymentStatus } from 'src/enum/paymentstatus.enum';
 import { PaymentType } from 'src/enum/paymentType.enum';
-
 @Entity({ name: 'payment' })
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
