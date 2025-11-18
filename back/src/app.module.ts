@@ -10,6 +10,7 @@ import { UsersEntity } from './entities/users.entity';
 import { CredentialsEntity } from './entities/credentials.entity';
 import { CredentialModule } from './credential/credential.module';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
         TypeOrmModule.forFeature([UsersEntity, CredentialsEntity]),
         SeedModule,
         AuthModule,
+        UsersModule,
         CredentialModule,
         JwtModule.register({
             global: true,

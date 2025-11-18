@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
     IsEmail,
     IsNotEmpty,
@@ -10,6 +11,12 @@ import {
 } from 'class-validator';
 
 export class CreatedUserDto {
+    @ApiProperty({
+        description: 'Nombre del usuario',
+        example: 'Juan',
+        minLength: 3,
+        maxLength: 25,
+    })
     @IsNotEmpty({ message: 'El nombre es requerido' })
     @IsString({
         message: 'El nombre debe ser una cadena de caracteres',
@@ -25,6 +32,12 @@ export class CreatedUserDto {
     })
     name: string;
 
+    @ApiProperty({
+        description: 'Apellido del usuario',
+        example: 'Florez',
+        minLength: 3,
+        maxLength: 25,
+    })
     @IsNotEmpty({
         message: 'El apellido es requerido',
     })
@@ -42,6 +55,10 @@ export class CreatedUserDto {
     })
     lastName: string;
 
+    @ApiProperty({
+        description: 'Correo del usuario',
+        example: 'juan@gmail.com',
+    })
     @IsNotEmpty({
         message: 'El correo electronico es requerido',
     })
@@ -53,6 +70,10 @@ export class CreatedUserDto {
     )
     email: string;
 
+    @ApiProperty({
+        description: 'Telefono del usuario',
+        example: 3146687436,
+    })
     @IsNotEmpty({
         message: 'El numero telefonico es requerido',
     })
@@ -62,6 +83,11 @@ export class CreatedUserDto {
     })
     phoneNumber: number;
 
+    @ApiProperty({
+        description: 'Direccion del usuario',
+        example: 'carrera 45 # 23-67',
+        minLength: 8,
+    })
     @IsNotEmpty({
         message: 'La direccion es requerida',
     })
@@ -73,14 +99,23 @@ export class CreatedUserDto {
     })
     adress: string;
 
+    @ApiProperty({
+        description: 'Fecha de nacimiento del usuario',
+        example: '13/08/2025',
+        pattern: 'dd/mm/aaaa',
+    })
     @IsNotEmpty({
         message: 'La fecha de cumpleaños es requerida',
     })
     @Matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/, {
         message: 'La fecha de cumpleaños debe estar en formato dd/mm/aaaa',
     })
-    birthDate: string;
+    birthDate: Date;
 
+    @ApiProperty({
+        description: 'Nombre de usuario para autenticación',
+        example: 'angy12',
+    })
     @IsNotEmpty({
         message: 'El nombre de usuario es requerido',
     })
@@ -89,6 +124,11 @@ export class CreatedUserDto {
     })
     userName: string;
 
+    @ApiProperty({
+        description:
+            'Contraseña del usuario (mínimo 8 caracteres, debe incluir mayúsculas, minúsculas, números y caracteres especiales)',
+        example: 'Angypao12_',
+    })
     @IsNotEmpty({ message: 'La contraseña es requerida' })
     @IsString({ message: 'La contraseña debe ser una cadena de caracteres' })
     @Matches(
