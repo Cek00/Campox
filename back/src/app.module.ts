@@ -12,6 +12,7 @@ import { CredentialModule } from './credential/credential.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PaymentModule } from './payment/payment.module';
+import { ReviewModule } from './review/review.module';
 import { ProductsModule } from './products/products.module';
 
 @Module({
@@ -30,6 +31,7 @@ import { ProductsModule } from './products/products.module';
         UsersModule,
         CredentialModule,
         PaymentModule,
+        ReviewModule,
         JwtModule.register({
             global: true,
             secret: process.env.JWT_SECRET,
