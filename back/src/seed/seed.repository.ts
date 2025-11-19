@@ -9,6 +9,8 @@ import { PaymentType } from 'src/enum/paymentType.enum';
 import { PaymentStatus } from 'src/enum/paymentStatus.enum';
 import { ReviewEntity } from 'src/entities/review.entity';
 import { ReviewStatus } from 'src/enum/reviewStatus.enum';
+import { OrderEntity } from 'src/entities/order.entity';
+import { OrderStatusEnum } from 'src/enum/orderStatus.enum';
 
 @Injectable()
 export class SeedRepository {
@@ -24,6 +26,9 @@ export class SeedRepository {
 
         @InjectRepository(ReviewEntity)
         private readonly reviewDatabase: Repository<ReviewEntity>,
+
+        @InjectRepository(OrderEntity)
+        private readonly orderDatabase: Repository<OrderEntity>,
     ) {}
 
     async seedUsersRepository() {
@@ -36,7 +41,7 @@ export class SeedRepository {
 
         await this.usersDataBase.save([
             {
-                id: '991cfafd-05cb-4e0f-86b2-3fcc7924366b',
+                uuid: '991cfafd-05cb-4e0f-86b2-3fcc7924366b',
                 name: 'Angy',
                 lastName: 'Ariza',
                 email: 'angy@gmail.com',
@@ -76,9 +81,7 @@ export class SeedRepository {
     async seedPaymentRepository() {
         const contador = await this.paymentDataBase.count();
         if (contador !== 0) {
-            throw new ConflictException(
-                'La base de datos ya contiene pagos',
-            );
+            throw new ConflictException('La base de datos ya contiene pagos');
         }
 
         await this.paymentDataBase.save([
@@ -89,13 +92,13 @@ export class SeedRepository {
                 paymentDate: new Date('2024-06-07'),
             },
             {
-                amount: 75.00,
+                amount: 75.0,
                 paymentmethod: PaymentType.DEBIT_CARD,
                 status: PaymentStatus.PENDING,
                 paymentDate: new Date('2022-11-15'),
             },
             {
-                amount: 200.50,
+                amount: 200.5,
                 paymentmethod: PaymentType.PAYPAL,
                 status: PaymentStatus.FAILED,
                 paymentDate: new Date('2025-01-20'),
@@ -108,38 +111,60 @@ export class SeedRepository {
 
     async seedReviewsRepository() {
         const contador = await this.reviewDatabase.count();
-    
+
         if (contador !== 0) {
-            throw new ConflictException(
-                'La base de datos ya contiene reviews',
-            );
+            throw new ConflictException('La base de datos ya contiene reviews');
         }
 
         await this.reviewDatabase.save([
             {
                 review: 5,
-                description: 'Excelente producto, superó mis expectativas. Muy recomendado.',
+                description:
+                    'Excelente producto, superó mis expectativas. Muy recomendado.',
                 createdAt: new Date('2024-11-01T10:30:00'),
                 anonymous: false,
                 status: ReviewStatus.VISIBLE,
             },
             {
                 review: 4,
-                description: 'Buen servicio, aunque el tiempo de entrega fue un poco largo.',
+                description:
+                    'Buen servicio, aunque el tiempo de entrega fue un poco largo.',
                 createdAt: new Date('2024-11-05T14:20:00'),
                 anonymous: true,
                 status: ReviewStatus.VISIBLE,
             },
             {
                 review: 3,
-                description: 'Producto aceptable, pero esperaba mejor calidad por el precio.',
+                description:
+                    'Producto aceptable, pero esperaba mejor calidad por el precio.',
                 createdAt: new Date('2024-11-10T09:15:00'),
                 anonymous: false,
                 status: ReviewStatus.HIDDEN,
             },
         ]);
 
-    return { message: 'Reviews creados con éxito' };
+        return { message: 'Reviews creados con éxito' };
     }
 
+    async seedOrdersRepository() {
+        const contador = await this.orderDatabase.count();
+        if (contador !== 0) {
+            throw new ConflictException('La base de datos ya contiene pedidos');
+        }
+
+        await this.orderDatabase.save([
+            {
+                uuid: '5ea486f8-6e51-4f5b-8e74-9b53e28b2b91',
+                status: OrderStatusEnum.PENDING,
+                createdAt: new Date('2024-06-01T10:00:00'),
+                estimatedTime: new Date('2024-06-05T10:00:00'),
+                total: 20000,
+                user: {
+                    uuid: '5d662d4c-8211-423d-9c80-b3cf416b0f12',
+                },
+            },
+        ]);
+
+        return { message: 'Pedido creado con exito' };
+    }
 }

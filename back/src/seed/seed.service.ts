@@ -12,12 +12,16 @@ export class SeedService {
     seedCredentialService() {
         return this.seedRepository.seedCredentialRepository();
     }
-    
+
     seedPaymentService() {
         return this.seedRepository.seedPaymentRepository();
     }
 
     seedReviewsService() {
         return this.seedRepository.seedReviewsRepository();
+    }
+
+    seedOrdersService() {
+        return this.seedRepository.seedOrdersRepository();
     }
 }

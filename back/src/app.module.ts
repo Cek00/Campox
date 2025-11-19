@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService, DataLoaderPayments, DataLoaderReviews, DataLoaderUsers } from './app.service';
+import {
+    AppService,
+    DataLoaderPayments,
+    DataLoaderReviews,
+    DataLoaderUsers,
+} from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,6 +21,7 @@ import { UsersModule } from './users/users.module';
 import { PaymentModule } from './payment/payment.module';
 import { ReviewModule } from './review/review.module';
 import { ProductsModule } from './products/products.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
     imports: [
@@ -27,21 +33,32 @@ import { ProductsModule } from './products/products.module';
             inject: [ConfigService],
             useFactory: (config: ConfigService) => config.get('typeorm') ?? {},
         }),
-        TypeOrmModule.forFeature([UsersEntity, CredentialsEntity, PaymentEntity, ReviewEntity]),
+        TypeOrmModule.forFeature([
+            UsersEntity,
+            CredentialsEntity,
+            PaymentEntity,
+            ReviewEntity,
+        ]),
+        JwtModule.register({
+            global: true,
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '9h' },
+        }),
         SeedModule,
         AuthModule,
         UsersModule,
         CredentialModule,
         PaymentModule,
         ReviewModule,
-        JwtModule.register({
-            global: true,
-            secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '9h' },
-        }),
+        OrderModule,
         ProductsModule,
     ],
     controllers: [AppController],
-    providers: [AppService, DataLoaderUsers, DataLoaderPayments, DataLoaderReviews],
+    providers: [
+        AppService,
+        DataLoaderUsers,
+        DataLoaderPayments,
+        DataLoaderReviews,
+    ],
 })
 export class AppModule {}
