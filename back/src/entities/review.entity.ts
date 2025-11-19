@@ -3,8 +3,7 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
-    ManyToMany,
-    JoinTable,
+    JoinColumn,
 } from 'typeorm';
 import { UsersEntity } from './users.entity';
 import { Product } from './products.entity';
@@ -54,7 +53,7 @@ export class ReviewEntity {
     @ManyToOne(() => UsersEntity, (user) => user.reviews)
     user: UsersEntity;
 
-    @ManyToMany(() => Product, (product) => product.reviews)
-    @JoinTable()
-    products: Product[];
+    @ManyToOne(() => Product, (product) => product.reviews)
+    @JoinColumn()
+    products: Product;
 }

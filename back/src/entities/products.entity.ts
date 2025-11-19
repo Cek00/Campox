@@ -54,6 +54,6 @@ export class Product {
     @OneToMany(() => OrderDetailEntity, (order_detail) => order_detail.product)
     order_detail: OrderDetailEntity[];
 
-    @ManyToMany(() => ReviewEntity, (review) => review.products)
+    @OneToMany(() => ReviewEntity, (review) => review.products)
     reviews: ReviewEntity[];
 }
