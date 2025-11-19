@@ -7,10 +7,18 @@ import { ReviewEntity } from 'src/entities/review.entity';
 import { SeedController } from './seed.controller';
 import { SeedService } from './seed.service';
 import { SeedRepository } from './seed.repository';
-
+import { OrderEntity } from 'src/entities/order.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([UsersEntity, CredentialsEntity, PaymentEntity, ReviewEntity])],
+    imports: [
+        TypeOrmModule.forFeature([
+            UsersEntity,
+            CredentialsEntity,
+            PaymentEntity,
+            ReviewEntity,
+            OrderEntity,
+        ]),
+    ],
     controllers: [SeedController],
     providers: [SeedService, SeedRepository],
 })

@@ -59,7 +59,7 @@ export class SeedController {
     @ApiConflictResponse({
         description: 'La base de datos ya contiene pagos',
     })
-    seedPayments() { 
+    seedPayments() {
         return this.seedService.seedPaymentService();
     }
 
@@ -78,5 +78,21 @@ export class SeedController {
     @ApiBearerAuth()
     seedReviews() {
         return this.seedService.seedReviewsService();
+    }
+
+    @Get('seedOrders')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @ApiOperation({ summary: 'Creacion de pedido' })
+    @ApiResponse({
+        status: 200,
+        description: 'Pedido creado con exito',
+    })
+    @ApiConflictResponse({
+        description: 'La base de datos ya contiene pedidos',
+    })
+    @ApiBearerAuth()
+    seedOrders() {
+        return this.seedService.seedOrdersService();
     }
 }
