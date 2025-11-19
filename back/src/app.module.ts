@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService, DataLoaderUsers } from './app.service';
+import { AppService, DataLoaderPayments, DataLoaderUsers } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,6 +8,7 @@ import { SeedModule } from './seed/seed.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersEntity } from './entities/users.entity';
 import { CredentialsEntity } from './entities/credentials.entity';
+import { PaymentEntity } from './entities/payment.entity';
 import { CredentialModule } from './credential/credential.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -25,7 +26,7 @@ import { ProductsModule } from './products/products.module';
             inject: [ConfigService],
             useFactory: (config: ConfigService) => config.get('typeorm') ?? {},
         }),
-        TypeOrmModule.forFeature([UsersEntity, CredentialsEntity]),
+        TypeOrmModule.forFeature([UsersEntity, CredentialsEntity, PaymentEntity]),
         SeedModule,
         AuthModule,
         UsersModule,
@@ -40,6 +41,6 @@ import { ProductsModule } from './products/products.module';
         ProductsModule,
     ],
     controllers: [AppController],
-    providers: [AppService, DataLoaderUsers],
+    providers: [AppService, DataLoaderUsers, DataLoaderPayments],
 })
 export class AppModule {}

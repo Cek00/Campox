@@ -48,4 +48,18 @@ export class SeedController {
     seedCredential() {
         return this.seedService.seedCredentialService();
     }
+
+    // Nuevo endpoint para seed de payment(pagos)
+    @Get('seedPayments')
+    @ApiOperation({ summary: 'Creacion de pagos' })
+    @ApiResponse({
+        status: 200,
+        description: 'Pagos creados con exito',
+    })
+    @ApiConflictResponse({
+        description: 'La base de datos ya contiene pagos',
+    })
+    seedPayments() { 
+        return this.seedService.seedPaymentService();
+    }
 }
