@@ -6,12 +6,12 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { User } from 'src/user/user.entity';
-import { Product } from 'src/product/product.entity';
+import { UsersEntity } from './users.entity';
+import { Product } from './products.entity';
 import { ReviewStatus } from 'src/enum/reviewStatus.enum';
 
 @Entity()
-export class Review {
+export class ReviewEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -51,10 +51,10 @@ export class Review {
   status: ReviewStatus;
 
   //relaciones
-  @ManyToOne(() => User, user => user.reviews)
-  user: User;
+  //@ManyToOne(() => UsersEntity, user => user.reviews)
+  //user: UsersEntity;
 
-  @ManyToMany(() => Product, product => product.reviews)
-  @JoinTable() 
-  products: Product[];
+  //@ManyToMany(() => Product, product => product.reviews)
+  //@JoinTable() 
+  //products: Product[];
 }

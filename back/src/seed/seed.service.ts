@@ -16,4 +16,8 @@ export class SeedService {
     seedPaymentService() {
         return this.seedRepository.seedPaymentRepository();
     }
+
+    seedReviewsService() {
+        return this.seedRepository.seedReviewsRepository();
+    }
 }

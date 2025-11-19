@@ -62,4 +62,21 @@ export class SeedController {
     seedPayments() { 
         return this.seedService.seedPaymentService();
     }
+
+    // Nuevo endpoint para seed de reviews(reseñas)
+    @Get('seedReviews')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @ApiOperation({ summary: 'Creación de reviews' })
+    @ApiResponse({
+        status: 200,
+        description: 'Reviews creados con éxito',
+    })
+    @ApiConflictResponse({
+        description: 'La base de datos ya contiene reviews',
+    })
+    @ApiBearerAuth()
+    seedReviews() {
+        return this.seedService.seedReviewsService();
+    }
 }

@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 import { PaymentEntity } from 'src/entities/payment.entity';
 import { PaymentType } from 'src/enum/paymentType.enum';
 import { PaymentStatus } from 'src/enum/paymentStatus.enum';
+import { ReviewEntity } from 'src/entities/review.entity';
+import { ReviewStatus } from 'src/enum/reviewStatus.enum';
 
 @Injectable()
 export class SeedRepository {
@@ -19,6 +21,9 @@ export class SeedRepository {
 
         @InjectRepository(PaymentEntity)
         private readonly paymentDataBase: Repository<PaymentEntity>,
+
+        @InjectRepository(ReviewEntity)
+        private readonly reviewDatabase: Repository<ReviewEntity>,
     ) {}
 
     async seedUsersRepository() {
@@ -97,6 +102,44 @@ export class SeedRepository {
             },
         ]);
         return { message: 'Pagos creados con exito' };
+    }
+
+    //implementacion del seed para reviews(reseñas)
+
+    async seedReviewsRepository() {
+        const contador = await this.reviewDatabase.count();
+    
+        if (contador !== 0) {
+            throw new ConflictException(
+                'La base de datos ya contiene reviews',
+            );
+        }
+
+        await this.reviewDatabase.save([
+            {
+                review: 5,
+                description: 'Excelente producto, superó mis expectativas. Muy recomendado.',
+                createdAt: new Date('2024-11-01T10:30:00'),
+                anonymous: false,
+                status: ReviewStatus.VISIBLE,
+            },
+            {
+                review: 4,
+                description: 'Buen servicio, aunque el tiempo de entrega fue un poco largo.',
+                createdAt: new Date('2024-11-05T14:20:00'),
+                anonymous: true,
+                status: ReviewStatus.VISIBLE,
+            },
+            {
+                review: 3,
+                description: 'Producto aceptable, pero esperaba mejor calidad por el precio.',
+                createdAt: new Date('2024-11-10T09:15:00'),
+                anonymous: false,
+                status: ReviewStatus.HIDDEN,
+            },
+        ]);
+
+    return { message: 'Reviews creados con éxito' };
     }
 
 }

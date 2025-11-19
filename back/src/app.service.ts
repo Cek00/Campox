@@ -10,6 +10,8 @@ import * as bcrypt from 'bcrypt';
 import { RolesEnum } from './enum/roles.enum';
 import { PaymentType } from './enum/paymentType.enum';
 import { PaymentStatus } from './enum/paymentStatus.enum';
+import { ReviewEntity } from './entities/review.entity';
+import { ReviewStatus } from './enum/reviewStatus.enum';
 
 
 @Injectable()
@@ -159,6 +161,68 @@ export class DataLoaderPayments implements OnModuleInit {
             console.log('Los pagos se guardaron exitosamente.');
         } catch (error) {
             console.error('Error al precargar pagos:', error);
+            await queryRunner.rollbackTransaction();
+        } finally {
+            await queryRunner.release();
+        }
+    }
+}
+
+@Injectable()
+export class DataLoaderReviews implements OnModuleInit {
+    constructor(
+        @InjectRepository(ReviewEntity)
+        private readonly reviewDatabase: Repository<ReviewEntity>,
+    ) {}
+
+    async onModuleInit() {
+        const reviewContador = await this.reviewDatabase.count();
+
+        if (reviewContador !== 0) {
+            console.log('La base de datos ya contiene reviews');
+            return;
+        }
+
+        console.log('Cargando reviews iniciales...');
+        
+        const queryRunner = this.reviewDatabase.manager.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        
+        try {
+            const filePath = path.resolve(
+                __dirname,
+                '..',
+                'src',
+                'utils',
+                'reviews.json',
+            );
+            const rawData = fs.readFileSync(filePath, 'utf-8');
+            const reviews = JSON.parse(rawData) as Array<{
+                review: number;
+                description: string;
+                createdAt: string;
+                anonymous: boolean;
+                status: ReviewStatus;
+            }>;
+
+            await Promise.all(
+                reviews.map(async (review) => {
+                    const newReview = this.reviewDatabase.create({
+                        review: review.review,
+                        description: review.description,
+                        createdAt: new Date(review.createdAt),
+                        anonymous: review.anonymous,
+                        status: review.status,
+                    });
+                    await queryRunner.manager.save(newReview);
+                }),
+            );
+            
+            await queryRunner.commitTransaction();
+            console.log('Los reviews se guardaron exitosamente.');
+        } catch (error) {
+            console.error('Error al precargar reviews:', error);
             await queryRunner.rollbackTransaction();
         } finally {
             await queryRunner.release();
