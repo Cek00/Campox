@@ -5,11 +5,13 @@ import {
     OneToMany,
     ManyToOne,
     JoinColumn,
+    OneToOne,
 } from 'typeorm';
 import { OrderDetailEntity } from './order-detail.entity';
 import { OrderHistoryEntity } from './order-history.entity';
 import { OrderStatusEnum } from 'src/enum/orderStatus.enum';
 import { UsersEntity } from './users.entity';
+import { PaymentEntity } from './payment.entity';
 
 @Entity({ name: 'order' })
 export class OrderEntity {
@@ -52,4 +54,7 @@ export class OrderEntity {
 
     @OneToMany(() => OrderHistoryEntity, (history) => history.order)
     history: OrderHistoryEntity[];
+
+    @OneToOne(() => PaymentEntity, (payment) => payment.order)
+    payment: PaymentEntity;
 }
