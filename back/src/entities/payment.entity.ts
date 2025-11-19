@@ -7,11 +7,11 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Order } from './order.entity';
-import { PaymentStatus } from 'src/enum/paymentstatus.enum';
+//import { Order } from './order.entity';
+import { PaymentStatus } from 'src/enum/paymentStatus.enum';
 import { PaymentType } from 'src/enum/paymentType.enum';
 @Entity({ name: 'payment' })
-export class Payment {
+export class PaymentEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
@@ -44,8 +44,8 @@ export class Payment {
   paymentDate: Date;
 
   //relacion uno a uno con order (pedido)
-  @OneToOne(() => Order, (order) => order.payment)
-  @JoinColumn()
-  order: Order;
+  //@OneToOne(() => Order, (order) => order.payment)
+  //@JoinColumn()
+  //order: Order;
 
 }
