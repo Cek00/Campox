@@ -1,0 +1,23 @@
+[
+    {
+        "review": 5,
+        "description": "Excelente producto, superó mis expectativas. Muy recomendado.",
+        "createdAt": "2024-11-01T10:30:00",
+        "anonymous": false,
+        "status": "visible"
+    },
+    {
+        "review": 4,
+        "description": "Buen servicio, aunque el tiempo de entrega fue un poco largo.",
+        "createdAt": "2024-11-05T14:20:00",
+        "anonymous": true,
+        "status": "visible"
+    },
+    {
+        "review": 3,
+        "description": "Producto aceptable, pero esperaba mejor calidad por el precio.",
+        "createdAt": "2024-11-10T09:15:00",
+        "anonymous": false,
+        "status": "hidden"
+    }
+]
