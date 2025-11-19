@@ -12,22 +12,22 @@ export class ProductsController {
 
     @Get('getAllProducts')
     getAllProducts() {
-        return this.productsService.getAllProductsService();
+   //     return this.productsService.getAllProductsService();
     }
 
     // Ruta para obtener un producto por su id
 
     @Get('getProductById/:uuid')
     getProductById(@Param('uuid', ParseUUIDPipe) uuid: string) {
-        return this.productsService.getProductByIdService(uuid);
+     //   return this.productsService.getProductByIdService(uuid);
     }
 
     // Ruta para crear un producto
 
-    @Post('createProduct')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    postCreateProduct(@Body() createProductDto: CreateProductDto); {
+    //@Post('createProduct')
+    //@UseGuards(AuthGuard, RolesGuard)
+    //@Roles(RolesEnum.ADMIN)
+    //postCreateProduct(@Body() createProductDto: CreateProductDto); {
 
     }
-}
+//}

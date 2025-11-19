@@ -1,2 +1,2 @@
 
-export class UpdateProductDto extends Partial
+//export class UpdateProductDto extends Partial
