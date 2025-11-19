@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PaymentModule } from './payment/payment.module';
 import { ProductsModule } from './products/products.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
     imports: [
@@ -36,6 +37,7 @@ import { ProductsModule } from './products/products.module';
             signOptions: { expiresIn: '9h' },
         }),
         ProductsModule,
+        OrderModule,
     ],
     controllers: [AppController],
     providers: [AppService, DataLoaderUsers],
