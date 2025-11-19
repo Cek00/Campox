@@ -12,4 +12,8 @@ export class SeedService {
     seedCredentialService() {
         return this.seedRepository.seedCredentialRepository();
     }
+    
+    seedPaymentService() {
+        return this.seedRepository.seedPaymentRepository();
+    }
 }

@@ -1,0 +1,32 @@
+[
+    {
+        "amount": 150.50,
+        "paymentmethod": "credit_card",
+        "status": "completed",
+        "paymentDate": "2024-11-01"
+    },
+    {
+        "amount": 299.99,
+        "paymentmethod": "paypal",
+        "status": "completed",
+        "paymentDate": "2024-11-10"
+    },
+    {
+        "amount": 75.00,
+        "paymentmethod": "debit_card",
+        "status": "pending",
+        "paymentDate": "2024-11-15"
+    },
+    {
+        "amount": 500.00,
+        "paymentmethod": "bank_transfer",
+        "status": "failed",
+        "paymentDate": "2024-11-12"
+    },
+    {
+        "amount": 1200.00,
+        "paymentmethod": "credit_card",
+        "status": "completed",
+        "paymentDate": "2024-11-08"
+    }
+]

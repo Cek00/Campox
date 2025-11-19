@@ -4,6 +4,9 @@ import { CredentialsEntity } from 'src/entities/credentials.entity';
 import { UsersEntity } from 'src/entities/users.entity';
 import { RolesEnum } from 'src/enum/roles.enum';
 import { Repository } from 'typeorm';
+import { PaymentEntity } from 'src/entities/payment.entity';
+import { PaymentType } from 'src/enum/paymentType.enum';
+import { PaymentStatus } from 'src/enum/paymentStatus.enum';
 
 @Injectable()
 export class SeedRepository {
@@ -13,6 +16,9 @@ export class SeedRepository {
 
         @InjectRepository(CredentialsEntity)
         private readonly credentialDataBase: Repository<CredentialsEntity>,
+
+        @InjectRepository(PaymentEntity)
+        private readonly paymentDataBase: Repository<PaymentEntity>,
     ) {}
 
     async seedUsersRepository() {
@@ -60,4 +66,37 @@ export class SeedRepository {
 
         return { message: 'Credencial creada con exito' };
     }
+
+    //implementacion del seed para payments (pagos)
+    async seedPaymentRepository() {
+        const contador = await this.paymentDataBase.count();
+        if (contador !== 0) {
+            throw new ConflictException(
+                'La base de datos ya contiene pagos',
+            );
+        }
+
+        await this.paymentDataBase.save([
+            {
+                amount: 150.75,
+                paymentmethod: PaymentType.CREDIT_CARD,
+                status: PaymentStatus.COMPLETED,
+                paymentDate: new Date('2024-06-07'),
+            },
+            {
+                amount: 75.00,
+                paymentmethod: PaymentType.DEBIT_CARD,
+                status: PaymentStatus.PENDING,
+                paymentDate: new Date('2022-11-15'),
+            },
+            {
+                amount: 200.50,
+                paymentmethod: PaymentType.PAYPAL,
+                status: PaymentStatus.FAILED,
+                paymentDate: new Date('2025-01-20'),
+            },
+        ]);
+        return { message: 'Pagos creados con exito' };
+    }
+
 }
