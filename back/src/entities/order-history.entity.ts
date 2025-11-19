@@ -1,37 +1,37 @@
 import {
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
 } from 'typeorm';
-//import { OrdersEntity } from 'src/entities/orders.entity';
-
+import { OrderEntity } from './order.entity';
 
 export enum OrderStatus {
-  PENDING = 'PENDING',
-  PROCESSING = 'PROCESSING',
-  SHIPPED = 'SHIPPED',
-  DELIVERED = 'DELIVERED',
-  CANCELLED = 'CANCELLED',
+    PENDING = 'PENDING',
+    PROCESSING = 'PROCESSING',
+    SHIPPED = 'SHIPPED',
+    DELIVERED = 'DELIVERED',
+    CANCELLED = 'CANCELLED',
 }
 
 @Entity({ name: 'order_history' })
 export class OrderHistoryEntity {
-  @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+    @PrimaryGeneratedColumn('uuid')
+    uuid: string;
 
-  @Column({ type: 'enum', enum: OrderStatus })
-  status: OrderStatus;
+    @Column({ type: 'enum', enum: OrderStatus })
+    status: OrderStatus;
 
-  @Column({ type: 'text', nullable: true })
-  note?: string;
+    @Column({ type: 'text', nullable: true })
+    note?: string;
 
-  @CreateDateColumn()
-  changedAt: Date;
+    @CreateDateColumn()
+    changedAt: Date;
 
- // @ManyToOne(() => OrdersEntity, (order) => (order.history ?? []), { nullable: false, onDelete: 'CASCADE' })
- // order: OrdersEntity;
-
-
+    @ManyToOne(() => OrderEntity, (order) => order.history ?? [], {
+        nullable: false,
+        onDelete: 'CASCADE',
+    })
+    order: OrderEntity;
 }
