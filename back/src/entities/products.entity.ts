@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
+import { Review } from "./review.entity";
 
 @Entity({name:'products'})
-export class Product {
+export class Products {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
@@ -13,6 +14,11 @@ export class Product {
         nullable: false,
     })
     name: string;
+
+      @Column({
+    type: 'timestamp',
+    })
+    createAt: Date;
 
     @Column({
         type: 'text',
@@ -40,14 +46,21 @@ export class Product {
     })
     stock: number;
 
+    @Column({
+    type: 'boolean',
+    default: true,
+    })
+    isActive: boolean;
+
     @ManyToMany(()=> Category, (category) => category.product)
     categories: Category[];
 
-    @OneToMany(() => OrderDetail, (order_detail) => order_detail.product)
-    order_detail: OrderDetail[];
+   // @OneToMany(() => OrderDetail, (order_detail) => order_detail.product)
+    //order_detail: OrderDetail[];
 
-    @ManyToMany(()=> Review, (review) => review.products)
+    @OneToMany(()=> Review, (review) => review.products)
     reviews: Review[];
+
 
 
 }

@@ -14,6 +14,7 @@ import { UsersModule } from './users/users.module';
 import { PaymentModule } from './payment/payment.module';
 import { ReviewModule } from './review/review.module';
 import { ProductsModule } from './products/products.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { ProductsModule } from './products/products.module';
             signOptions: { expiresIn: '9h' },
         }),
         ProductsModule,
+        CategoryModule,
     ],
     controllers: [AppController],
     providers: [AppService, DataLoaderUsers],

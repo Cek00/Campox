@@ -48,4 +48,6 @@ export class SeedController {
     seedCredential() {
         return this.seedService.seedCredentialService();
     }
+
+    
 }

@@ -60,4 +60,7 @@ export class SeedRepository {
 
         return { message: 'Credencial creada con exito' };
     }
+
+    // Metodo seed para productos 
+    
 }
