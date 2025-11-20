@@ -22,7 +22,7 @@ export class CreateOrderDto {
     })
     @IsNotEmpty({ message: 'La fecha del pedido es requerida' })
     @Matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/, {
-        message: 'La fecha de cumpleaños debe estar en formato dd/mm/aaaa',
+        message: 'La fecha de pedido debe estar en formato dd/mm/aaaa',
     })
     createdAt: Date;
 

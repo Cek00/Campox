@@ -8,6 +8,7 @@ import { SeedController } from './seed.controller';
 import { SeedService } from './seed.service';
 import { SeedRepository } from './seed.repository';
 import { OrderEntity } from 'src/entities/order.entity';
+import { OrderHistoryEntity } from 'src/entities/order-history.entity';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { OrderEntity } from 'src/entities/order.entity';
             PaymentEntity,
             ReviewEntity,
             OrderEntity,
+            OrderHistoryEntity,
         ]),
     ],
     controllers: [SeedController],

@@ -23,6 +23,7 @@ import { ReviewModule } from './review/review.module';
 import { ProductsModule } from './products/products.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
+import { OrderHistoryModule } from './order-history/order-history.module';
 
 @Module({
     imports: [
@@ -54,6 +55,7 @@ import { OrderModule } from './order/order.module';
         OrderModule,
         ProductsModule,
         CategoryModule,
+        OrderHistoryModule,
     ],
     controllers: [AppController],
     providers: [

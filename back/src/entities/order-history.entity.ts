@@ -1,33 +1,24 @@
-import {
-    Column,
-    Entity,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderEntity } from './order.entity';
-
-export enum OrderStatus {
-    PENDING = 'PENDING',
-    PROCESSING = 'PROCESSING',
-    SHIPPED = 'SHIPPED',
-    DELIVERED = 'DELIVERED',
-    CANCELLED = 'CANCELLED',
-}
+import { OrderStatusEnum } from 'src/enum/orderStatus.enum';
 
 @Entity({ name: 'order_history' })
 export class OrderHistoryEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
-    @Column({ type: 'enum', enum: OrderStatus })
-    status: OrderStatus;
+    @Column({
+        type: 'date',
+        name: 'created_at',
+        default: () => 'CURRENT_TIMESTAMP',
+    })
+    createdAt: Date;
+
+    @Column({ type: 'enum', enum: OrderStatusEnum })
+    status: OrderStatusEnum;
 
     @Column({ type: 'text', nullable: true })
-    note?: string;
-
-    @CreateDateColumn()
-    changedAt: Date;
+    observation?: string;
 
     @ManyToOne(() => OrderEntity, (order) => order.history ?? [], {
         nullable: false,
