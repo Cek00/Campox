@@ -1,13 +1,15 @@
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
-import { Review } from "./review.entity";
+import { ReviewEntity } from "./review.entity";
+import { OrderDetailEntity } from "./order-detail.entity";
+
 
 @Entity({name:'products'})
 export class Products {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
-    @Column ({
+    @Column({
         type: 'varchar',
         length: 25,
         unique: true,
@@ -45,22 +47,18 @@ export class Products {
         nullable: false,
     })
     stock: number;
-
-    @Column({
+      @Column({
     type: 'boolean',
     default: true,
     })
     isActive: boolean;
 
-    @ManyToMany(()=> Category, (category) => category.product)
+    @ManyToMany(() => Category, (category) => category.products)
     categories: Category[];
 
-   // @OneToMany(() => OrderDetail, (order_detail) => order_detail.product)
-    //order_detail: OrderDetail[];
+    @OneToMany(() => OrderDetailEntity, (order_detail) => order_detail.product)
+    order_detail: OrderDetailEntity[];
 
-    @OneToMany(()=> Review, (review) => review.products)
-    reviews: Review[];
-
-
-
+    @OneToMany(() => ReviewEntity, (review) => review.products)
+    reviews: ReviewEntity[];
 }
