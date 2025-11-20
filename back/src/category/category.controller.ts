@@ -1,19 +1,24 @@
 import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/Guards/auth.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { CreateCategoryDto } from './Dtos/createCategory.dto';
 import { RolesGuard } from 'src/auth/Guards/roles.guard';
 import { RolesEnum } from 'src/enum/roles.enum';
-import { UpdateCategoryDto } from './Dtos/updateCategory.dto';
 
+@ApiTags('Categorías')
 @Controller('category')
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
     // Ruta para obtener todas las categorias
-    @ApiOperation({ summary: 'Obtener todas las categorias'})
+    @ApiOperation({ summary: 'Obtener todas las categorias' })
     @ApiResponse({
         status: 200,
         description: 'Categorias obtenidas exitosamente',
@@ -26,7 +31,7 @@ export class CategoryController {
     }
 
     // Ruta para obtener una categoria por su id
-    @ApiOperation({ summary: 'Obtener una categoria por su id'})
+    @ApiOperation({ summary: 'Obtener una categoria por su id' })
     @ApiResponse({
         status: 200,
         description: 'Categorias obtenidas por id',
@@ -39,21 +44,21 @@ export class CategoryController {
     }
 
     // Ruta para crear una categoria
-    @ApiOperation({ summary: 'Crear una categoria'})
+    @ApiOperation({ summary: 'Crear una categoria' })
     @ApiResponse({
         status: 201,
         description: 'Categoria creada exitosamente',
     })
-     @ApiBearerAuth()
-     @UseGuards(AuthGuard, RolesGuard)
-     @Roles(RolesEnum.ADMIN)
-     @Post('createCategory')
-     create(@Body() createCategoryDto: CreateCategoryDto) {
-       return this.categoryService.createCategory(createCategoryDto);
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @Post('createCategory')
+    create(@Body() createCategoryDto: CreateCategoryDto) {
+        return this.categoryService.createCategory(createCategoryDto);
     }
 
     // Ruta para actualizar una categoria
-    @ApiOperation({ summary: 'Actualizar una categoria'})
+    @ApiOperation({ summary: 'Actualizar una categoria' })
     @ApiResponse({
         status: 200,
         description: 'Categoria actualizada exitosamente',
@@ -65,5 +70,4 @@ export class CategoryController {
     update(@Body() UpdateCategoryDto) {
         return this.categoryService.updateCategory(UpdateCategoryDto);
     }
-
 }
