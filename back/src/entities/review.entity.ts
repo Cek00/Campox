@@ -6,7 +6,7 @@ import {
     JoinColumn,
 } from 'typeorm';
 import { UsersEntity } from './users.entity';
-import { Product } from './products.entity';
+import { Products } from './products.entity';
 import { ReviewStatus } from 'src/enum/reviewStatus.enum';
 
 @Entity({ name: 'reviews' })
@@ -53,7 +53,7 @@ export class ReviewEntity {
     @ManyToOne(() => UsersEntity, (user) => user.reviews)
     user: UsersEntity;
 
-    @ManyToOne(() => Product, (product) => product.reviews)
+    @ManyToOne(() => Products, (product) => product.reviews)
     @JoinColumn()
-    products: Product;
+    products: Products;
 }

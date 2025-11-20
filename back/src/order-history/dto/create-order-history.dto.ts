@@ -38,7 +38,7 @@ export class CreateOrderHistoryDto {
     @IsString({ message: 'La observación debe ser un texto' })
     observation?: string;
 
-    @ApiProperty({ description: 'UUID del pedido', example: 'uuid-order' })
+    @ApiProperty({ description: 'UUID del pedido', example: '' })
     @IsNotEmpty({ message: 'El ID del pedido es requerido' })
     @IsUUID('4', { message: 'El ID del pedido debe ser un UUID válido' })
     @IsUUID()
