@@ -21,6 +21,7 @@ import { UsersModule } from './users/users.module';
 import { PaymentModule } from './payment/payment.module';
 import { ReviewModule } from './review/review.module';
 import { ProductsModule } from './products/products.module';
+import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
 
 @Module({
@@ -52,6 +53,7 @@ import { OrderModule } from './order/order.module';
         ReviewModule,
         OrderModule,
         ProductsModule,
+        CategoryModule,
     ],
     controllers: [AppController],
     providers: [
