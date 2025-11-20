@@ -24,4 +24,8 @@ export class SeedService {
     seedOrdersService() {
         return this.seedRepository.seedOrdersRepository();
     }
+
+    seedOrdersHistoryService() {
+        return this.seedRepository.seedOrdersHistoryRepository();
+    }
 }

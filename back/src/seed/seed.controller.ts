@@ -95,4 +95,20 @@ export class SeedController {
     seedOrders() {
         return this.seedService.seedOrdersService();
     }
+
+    @Get('seedOrdersHistory')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @ApiOperation({ summary: 'Creacion del historial de pedido' })
+    @ApiResponse({
+        status: 200,
+        description: 'Historial de pedido creado con exito',
+    })
+    @ApiConflictResponse({
+        description: 'La base de datos ya contiene historial de pedidos',
+    })
+    @ApiBearerAuth()
+    seedOrdersHistory() {
+        return this.seedService.seedOrdersHistoryService();
+    }
 }

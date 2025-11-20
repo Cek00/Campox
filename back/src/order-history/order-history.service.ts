@@ -2,47 +2,43 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { OrderHistoryRepository } from './order-history.repository';
 import { CreateOrderHistoryDto } from './dto/create-order-history.dto';
 import { UpdateOrderHistoryDto } from './dto/update-order-history.dto';
+import { OrderRepository } from 'src/order/order.repository';
 
 @Injectable()
 export class OrderHistoryService {
-  constructor(private readonly repo: OrderHistoryRepository) {}
+    constructor(
+        private readonly orderHistoryRepository: OrderHistoryRepository,
+        private readonly orderRepository: OrderRepository,
+    ) {}
 
-  async create(dto: CreateOrderHistoryDto) {
-    const toSave: Partial<any> = {
-      status: dto.status,
-      note: dto.note,
-      order: { uuid: dto.orderUuid },
-      changedBy: dto.changedByUuid ? { uuid: dto.changedByUuid } : undefined,
-    };
-    return this.repo.createAndSave(toSave);
-  }
+    async getByIdService(uuid: string) {
+        const found = await this.orderHistoryRepository.getByIdRepository(uuid);
+        if (!found)
+            throw new NotFoundException('Historial de pedido no existe');
+        return found;
+    }
 
-  findAll() {
-    return this.repo.findAll();
-  }
+    async createService(data: CreateOrderHistoryDto) {
+        const orderExisting = await this.orderRepository.getOrderByIdRepository(
+            data.uuidOrder,
+        );
+        if (!orderExisting) {
+            throw new NotFoundException('Este pedido no existe');
+        }
 
-  async findOne(uuid: string) {
-    const found = await this.repo.findById(uuid);
-    if (!found) throw new NotFoundException('OrderHistory no existe');
-    return found;
-  }
+        return this.orderHistoryRepository.createRepository(data);
+    }
 
-  async findByOrder(orderUuid: string) {
-    return this.repo.findByOrder(orderUuid);
-  }
+    async updateService(data: UpdateOrderHistoryDto) {
+        const orderHistoryExiting = await this.getByIdService(data.uuid);
+        return await this.orderHistoryRepository.updateRepository(
+            orderHistoryExiting,
+            data,
+        );
+    }
 
-  async remove(uuid: string) {
-    const found = await this.repo.findById(uuid);
-    if (!found) throw new NotFoundException('OrderHistory no existe');
-    await this.repo.delete(uuid);
-    return { deleted: true };
-  }
-
-  async update(uuid: string, dto: UpdateOrderHistoryDto) {
-    const found = await this.repo.findById(uuid);
-    if (!found) throw new NotFoundException('OrderHistory no existe');
-    // normalmente solo se añade un nuevo registro de historial; actualizarlo es permitido aquí:
-    await this.repo.update(uuid , dto as any);
-    return this.repo.findById(uuid);
-  }
+    async deleteService(uuid: string) {
+        await this.getByIdService(uuid);
+        return await this.orderHistoryRepository.deleteRepository(uuid);
+    }
 }
