@@ -3,6 +3,7 @@ import { SeedRepository } from './seed.repository';
 
 @Injectable()
 export class SeedService {
+    
     constructor(private readonly seedRepository: SeedRepository) {}
 
     seedUsersService() {
@@ -24,4 +25,14 @@ export class SeedService {
     seedOrdersService() {
         return this.seedRepository.seedOrdersRepository();
     }
+    
+    seedProductsService() {
+        return this.seedRepository.seedProductsRepository();
+    }
+    seedCategoriesService() {
+        return this.seedRepository.seedCategoriesRepository();
+    }
+
+
+    
 }

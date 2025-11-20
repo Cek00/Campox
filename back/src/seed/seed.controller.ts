@@ -95,4 +95,39 @@ export class SeedController {
     seedOrders() {
         return this.seedService.seedOrdersService();
     }
+    // Nuevo endpoint para el seed products
+ 
+    @Get('seedProducts')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @ApiOperation({ summary: 'Creación de productos' })
+    @ApiResponse({
+     status: 200,
+     description: 'Productos creados con éxito',
+    })
+    @ApiConflictResponse({
+     description: 'La base de datos ya contiene productos',
+    })
+    @ApiBearerAuth()
+    seedProducts() {
+      return this.seedService.seedProductsService();
+  }
+    // Nuevo endpoint para el seed categories
+    @Get('seedCategories')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolesEnum.ADMIN)
+    @ApiOperation({ summary: 'Creación de categorías' })
+    @ApiResponse({
+      status: 200,
+      description: 'Categorías creadas con éxito',
+  })
+   @ApiConflictResponse({
+  description: 'La base de datos ya contiene categorías',
+  })
+  @ApiBearerAuth()
+  seedCategories() {
+  return this.seedService.seedCategoriesService();
+ }
+
 }
+

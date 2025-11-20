@@ -8,6 +8,8 @@ import { SeedController } from './seed.controller';
 import { SeedService } from './seed.service';
 import { SeedRepository } from './seed.repository';
 import { OrderEntity } from 'src/entities/order.entity';
+import { Products } from 'src/entities/products.entity';
+import { Category } from 'src/entities/category.entity';
 
 @Module({
     imports: [
@@ -17,6 +19,8 @@ import { OrderEntity } from 'src/entities/order.entity';
             PaymentEntity,
             ReviewEntity,
             OrderEntity,
+            Products,
+            Category,
         ]),
     ],
     controllers: [SeedController],

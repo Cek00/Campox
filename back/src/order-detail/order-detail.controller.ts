@@ -10,7 +10,7 @@ import {
   ParseUUIDPipe,
   UseGuards,
 } from '@nestjs/common';
-import { OrderDetailService } from './order-detail.service';
+//import { OrderDetailService } from './order-detail.service';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
 import { AuthGuard } from 'src/auth/Guards/auth.guard';
@@ -29,7 +29,7 @@ import {
 @ApiTags('Order Details')
 @Controller('order-detail')
 export class OrderDetailController {
-  constructor(private readonly service: OrderDetailService) {}
+  //constructor(private readonly service: OrderDetailService) {}
 
   @Post()
   @UseGuards(AuthGuard, RolesGuard)
@@ -38,7 +38,7 @@ export class OrderDetailController {
   @ApiResponse({ status: 201, description: 'Detalle creado.' })
   @ApiBearerAuth()
   create(@Body() dto: CreateOrderDetailDto) {
-    return this.service.create(dto);
+    //return this.service.create(dto);
   }
 
   @Get('getAll')
@@ -48,7 +48,7 @@ export class OrderDetailController {
   @ApiResponse({ status: 200 })
   @ApiBearerAuth()
   findAll() {
-    return this.service.findAll();
+   // return this.service.findAll();
   }
 
   @Get(':uuid')
@@ -59,7 +59,7 @@ export class OrderDetailController {
   @ApiNotFoundResponse({ description: 'No existe' })
   @ApiBearerAuth()
   findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
-    return this.service.findOne(uuid);
+    //return this.service.findOne(uuid);
   }
 
   @Get('by-order')
@@ -69,7 +69,7 @@ export class OrderDetailController {
   @ApiOperation({ summary: 'Obtener detalles por pedido' })
   @ApiBearerAuth()
   findByOrder(@Query('orderUuid') orderUuid: string) {
-    return this.service.findByOrder(orderUuid);
+    //return this.service.findByOrder(orderUuid);
   }
 
   @Put(':uuid')
@@ -78,7 +78,7 @@ export class OrderDetailController {
   @ApiOperation({ summary: 'Actualizar detalle' })
   @ApiBearerAuth()
   update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() dto: UpdateOrderDetailDto) {
-    return this.service.update(uuid, dto);
+   // return this.service.update(uuid, dto);
   }
 
   @Delete(':uuid')
@@ -87,6 +87,6 @@ export class OrderDetailController {
   @ApiOperation({ summary: 'Eliminar detalle' })
   @ApiBearerAuth()
   remove(@Param('uuid', ParseUUIDPipe) uuid: string) {
-    return this.service.remove(uuid);
+  //  return this.service.remove(uuid);
   }
 }

@@ -10,10 +10,13 @@ import { PaymentStatus } from 'src/enum/paymentStatus.enum';
 import { ReviewEntity } from 'src/entities/review.entity';
 import { ReviewStatus } from 'src/enum/reviewStatus.enum';
 import { OrderEntity } from 'src/entities/order.entity';
+import { Products } from 'src/entities/products.entity';
 import { OrderStatusEnum } from 'src/enum/orderStatus.enum';
+import { Category } from 'src/entities/category.entity';
 
 @Injectable()
 export class SeedRepository {
+  
     constructor(
         @InjectRepository(UsersEntity)
         private readonly usersDataBase: Repository<UsersEntity>,
@@ -29,6 +32,12 @@ export class SeedRepository {
 
         @InjectRepository(OrderEntity)
         private readonly orderDatabase: Repository<OrderEntity>,
+
+        @InjectRepository(Products)
+        private readonly productsDataBase: Repository<Products>,
+
+        @InjectRepository(Category)
+        private readonly categoryDataBase: Repository<Category>,
     ) {}
 
     async seedUsersRepository() {
@@ -149,7 +158,7 @@ export class SeedRepository {
     async seedOrdersRepository() {
         const contador = await this.orderDatabase.count();
         if (contador !== 0) {
-            throw new ConflictException('La base de datos ya contiene pedidos');
+            throw new ConflictException('La base de datos ya contiene productos');
         }
 
         await this.orderDatabase.save([
@@ -167,4 +176,72 @@ export class SeedRepository {
 
         return { message: 'Pedido creado con exito' };
     }
+    // implementación del seed para products
+
+   async seedProductsRepository() {
+      const count = await this.productsDataBase.count();
+        if (count !== 0) {
+      throw new ConflictException('Ya existen productos en la base de datos');
+}
+
+
+    await this.productsDataBase.save([
+        {
+            name: 'Mermelada de mora artesanal',
+            createAt: new Date('2025-02-02'),
+            imgUrl: 'https://postimg.cc/4YtYc465',
+            description: 'Mermelada casera elaborada con moras frescas',
+            price: 12000.00,
+            stock: 15,
+            isActive: true,
+        },
+        {
+            name: 'Café en Grano',
+            createAt: new Date('2025-02-03'),
+            imgUrl: 'https://i.postimg.cc/zvYcKdrd/cafe-en-grano-Colombiano.jpg',
+            description: 'Café cultivado en la región andina, tostado artesanalmente',
+            price: 18000.99,
+            stock: 40,
+            isActive: true,
+        },
+        {
+            name: 'Lechuga',
+            createAt: new Date('2025-02-02'),
+            imgUrl: 'https://i.postimg.cc/mrFjjQVV/lechuga-fresca.webp',
+            description: 'Lechuga fresca cultivada con técnicas sostenibles',
+            price: 2500.00,
+            stock: 100,
+            isActive: true,
+        },
+    ]);
+
+    return { message: 'Productos creados con éxito' };
+    }
+
+    // implementación del seed para categories 
+    async seedCategoriesRepository() {
+      const contador = await this.categoryDataBase.count();
+    if (contador != 0) {
+        throw new ConflictException('La base de datos ya contiene categorías');
+    }
+
+    await this.categoryDataBase.save([
+        {
+            name: 'Frutas',
+            description: 'Productos frescos de origen frutal',
+        },
+        {
+            name: 'Verduras',
+            description: 'Hortalizas cultivadas con técnicas sostenibles.',
+        },
+        {
+            name: 'Procesados artesanales ',
+            description: 'Mermeladas, miel y otros productos caseros',
+        }
+    ]);
+
+        return { message: 'Categorías creadas con éxito' };
+    }
+
+ 
 }
