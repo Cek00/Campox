@@ -10,7 +10,7 @@ import {
     ParseUUIDPipe,
     UseGuards,
 } from '@nestjs/common';
-//import { OrderDetailService } from './order-detail.service';
+import { OrderDetailService } from './order-detail.service';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
 import { AuthGuard } from 'src/auth/Guards/auth.guard';
