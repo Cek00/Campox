@@ -34,7 +34,8 @@ export class ProductsController {
     @ApiResponse({ status: 200, description: 'Lista de productos obtenida' })
     @Get('getAllProducts')
     getAllProducts() {
-        //     return this.productsService.getAllProductsService();
+        return this.productsService.getAllProductsService();
+       
     }
 
     // Ruta para crear un producto
