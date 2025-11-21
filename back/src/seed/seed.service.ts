@@ -32,7 +32,7 @@ export class SeedService {
     seedCategoriesService() {
         return this.seedRepository.seedCategoriesRepository();
     }
-
-
-    
+    seedOrdersHistoryService() {
+        return this.seedRepository.seedOrdersHistoryRepository();
+    }
 }

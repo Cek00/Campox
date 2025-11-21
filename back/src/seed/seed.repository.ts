@@ -13,6 +13,7 @@ import { OrderEntity } from 'src/entities/order.entity';
 import { Products } from 'src/entities/products.entity';
 import { OrderStatusEnum } from 'src/enum/orderStatus.enum';
 import { Category } from 'src/entities/category.entity';
+import { OrderHistoryEntity } from 'src/entities/order-history.entity';
 
 @Injectable()
 export class SeedRepository {
@@ -38,6 +39,8 @@ export class SeedRepository {
 
         @InjectRepository(Category)
         private readonly categoryDataBase: Repository<Category>,
+        @InjectRepository(OrderHistoryEntity)
+        private readonly orderHistoryDatabase: Repository<OrderHistoryEntity>,
     ) {}
 
     async seedUsersRepository() {
@@ -244,4 +247,27 @@ export class SeedRepository {
     }
 
  
+
+    async seedOrdersHistoryRepository() {
+        const contador = await this.orderHistoryDatabase.count();
+        if (contador !== 0) {
+            throw new ConflictException(
+                'La base de datos ya contiene historial de pedidos',
+            );
+        }
+
+        await this.orderHistoryDatabase.save([
+            {
+                uuid: 'edf97f47-3961-4044-9be9-00f763d1c8d0',
+                status: OrderStatusEnum.PENDING,
+                createdAt: new Date('2024-06-01T10:00:00'),
+                observation: 'Pedido en proceso',
+                order: {
+                    uuid: '5ea486f8-6e51-4f5b-8e74-9b53e28b2b91',
+                },
+            },
+        ]);
+
+        return { message: 'Historial de pedido creado con exito' };
+    }
 }

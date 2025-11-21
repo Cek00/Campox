@@ -11,11 +11,8 @@ export class OrderDetailEntity {
     @Column({ type: 'int', nullable: false })
     quantity: number;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-    price: number;
-
-    @Column({ type: 'varchar', length: 250, nullable: true })
-    note?: string;
+    @Column({ type: 'decimal', nullable: false })
+    subtotal: number;
 
     @ManyToOne(() => OrderEntity, (order) => order.detail ?? [], {
         nullable: false,

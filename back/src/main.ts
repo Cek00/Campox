@@ -12,7 +12,7 @@ async function bootstrap() {
     const options = new DocumentBuilder()
         .setTitle('CAMPOX - API REST')
         .setDescription(
-            'Descripción de la API REST de CAMPOX, una plataforma para la gestión agrícola.',
+            'Campox es una plataforma digital que conecta directamente a productores rurales con consumidores urbanos, eliminando intermediarios para promover el comercio justo. Los campesinos pueden vender sus productos de forma segura y transparente. La plataforma es intuitiva y ofrece acompañamiento presencial y soporte accesible, reconociendo las limitaciones digitales del sector rural.',
         )
         .setVersion('1.0')
         .addBearerAuth()

@@ -5,8 +5,8 @@ import {
     Get,
     Param,
     ParseUUIDPipe,
-    Patch,
     Post,
+    Put,
     UseGuards,
 } from '@nestjs/common';
 import {
@@ -59,7 +59,7 @@ export class OrderController {
         return this.orderService.createOrderService(data);
     }
 
-    @Patch('updateOrder/:uuid')
+    @Put('updateOrder')
     @UseGuards(AuthGuard)
     @ApiOperation({ summary: 'Actualizar un pedido' })
     @ApiResponse({

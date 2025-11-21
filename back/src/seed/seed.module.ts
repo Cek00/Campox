@@ -10,6 +10,7 @@ import { SeedRepository } from './seed.repository';
 import { OrderEntity } from 'src/entities/order.entity';
 import { Products } from 'src/entities/products.entity';
 import { Category } from 'src/entities/category.entity';
+import { OrderHistoryEntity } from 'src/entities/order-history.entity';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { Category } from 'src/entities/category.entity';
             OrderEntity,
             Products,
             Category,
+            OrderHistoryEntity,
         ]),
     ],
     controllers: [SeedController],

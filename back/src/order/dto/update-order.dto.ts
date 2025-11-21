@@ -5,7 +5,7 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     @ApiProperty({
         description: 'UUID del pedido a actualizar',
-        example: '5ea486f8-6e51-4f5b-8e74-9b53e28b2b91',
+        example: '',
         format: 'uuid',
     })
     @IsNotEmpty({ message: 'El id del pedido es obligatorio' })
