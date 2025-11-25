@@ -5,47 +5,51 @@ import { UpdatePaymentDto } from './Dtos/updatePayment.dto';
 
 @Injectable()
 export class PaymentService {
-    constructor(private readonly paymentRepository: PaymentRepository) {}
+  constructor(private readonly paymentRepository: PaymentRepository) {}
 
-    getAllPaymentsService() {
-        return this.paymentRepository.getAllPaymentsRepository();
-    }
+  //servicio para obtener todos los pagos
+  getAllPaymentsService() {
+    return this.paymentRepository.getAllPaymentsRepository();
+  }
 
-    async getPaymentByIdService(uuid: string) {
-        const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(uuid);
+  //servicio para obtener un pago por su id
+  async getPaymentByIdService(uuid: string) {
+    const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(
+      uuid,
+    );
 
-        if (!paymentExisting) {
-            throw new NotFoundException('El pago no existe');
-        }
+    if (!paymentExisting) throw new NotFoundException('El pago no existe');
 
-        return paymentExisting;
-    }
+    return paymentExisting;
+  }
 
-    createPaymentService(data: CreatePaymentDto) {
-        return this.paymentRepository.createPaymentRepository(data);
-    }
+  //servicio para crear un nuevo pago
+  createPaymentService(data: CreatePaymentDto) {
+    return this.paymentRepository.createPaymentRepository(data);
+  }
 
-    async updatePaymentService(data: UpdatePaymentDto) {
-        const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(
-            data.uuid,
-        );
+  //servicio para actualizar un pago
+  async updatePaymentService(uuid: string, data: UpdatePaymentDto) {
+    const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(
+      uuid,
+    );
 
-        if (!paymentExisting) {
-            throw new NotFoundException('El pago no existe');
-        }
+    if (!paymentExisting) throw new NotFoundException('El pago no existe');
 
-        return this.paymentRepository.updatePaymentRepository(paymentExisting, data);
-    }
+    return this.paymentRepository.updatePaymentRepository(
+      paymentExisting,
+      data,
+    );
+  }
 
-    async deletePaymentService(uuid: string) {
-        const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(
-            uuid,
-        );
+  //servicio para eliminar un pago
+  async deletePaymentService(uuid: string) {
+    const paymentExisting = await this.paymentRepository.getPaymentByIdRepository(
+      uuid,
+    );
 
-        if (!paymentExisting) {
-            throw new NotFoundException('El pago no existe');
-        }
+    if (!paymentExisting) throw new NotFoundException('El pago no existe');
 
-        return this.paymentRepository.deletePaymentRepository(paymentExisting);
-    }
+    return this.paymentRepository.deletePaymentRepository(paymentExisting);
+  }
 }

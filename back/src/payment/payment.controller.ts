@@ -1,13 +1,13 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    ParseUUIDPipe,
-    Post,
-    Put,
-    UseGuards,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  UseGuards,
 } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { AuthGuard } from 'src/auth/Guards/auth.guard';
@@ -18,68 +18,63 @@ import { CreatePaymentDto } from './Dtos/createPayment.dto';
 import { UpdatePaymentDto } from './Dtos/updatePayment.dto';
 
 import {
-    ApiBearerAuth,
-    ApiNotFoundResponse,
-    ApiOperation,
-    ApiResponse,
-    ApiTags,
+  ApiBearerAuth,
+  ApiNotFoundResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 @ApiTags('Pagos')
 @Controller('payment')
 export class PaymentController {
-    constructor(private readonly paymentService: PaymentService) {}
+  constructor(private readonly paymentService: PaymentService) {}
 
-    @Get('getAllPayment')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    @ApiOperation({ summary: 'Obtener todos los pagos' })
-    @ApiResponse({ status: 200, description: 'Pagos obtenidos exitosamente' })
-    @ApiBearerAuth()
-    getAllPayment() {
-        return this.paymentService.getAllPaymentsService();
-    }
+  // Ruta para obtener todos los pagos
+  @Get('getAllPayment')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RolesEnum.ADMIN)
+  @ApiBearerAuth()
+  getAllPayment() {
+    return this.paymentService.getAllPaymentsService();
+  }
 
-    @Get('getPaymentById/:uuid')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    @ApiOperation({ summary: 'Obtener un pago por ID' })
-    @ApiResponse({ status: 200, description: 'Pago obtenido exitosamente' })
-    @ApiNotFoundResponse({ description: 'El pago no existe' })
-    @ApiBearerAuth()
-    getPaymentById(@Param('uuid', ParseUUIDPipe) uuid: string) {
-        return this.paymentService.getPaymentByIdService(uuid);
-    }
+  // Ruta para obtener un pago por su UUID
+  @Get('getPaymentById/:uuid')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RolesEnum.ADMIN)
+  @ApiBearerAuth()
+  getPaymentById(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    return this.paymentService.getPaymentByIdService(uuid);
+  }
 
-    @Post('createPayment')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    @ApiOperation({ summary: 'Crear un pago' })
-    @ApiResponse({ status: 201, description: 'Pago creado exitosamente' })
-    @ApiBearerAuth()
-    createPayment(@Body() data: CreatePaymentDto) {
-        return this.paymentService.createPaymentService(data);
-    }
+  // Ruta para crear un nuevo pago
+  @Post('createPayment')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RolesEnum.ADMIN)
+  @ApiBearerAuth()
+  createPayment(@Body() data: CreatePaymentDto) {
+    return this.paymentService.createPaymentService(data);
+  }
 
-    @Put('updatePayment')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    @ApiOperation({ summary: 'Actualizar un pago' })
-    @ApiResponse({ status: 200, description: 'Pago actualizado exitosamente' })
-    @ApiNotFoundResponse({ description: 'El pago no existe' })
-    @ApiBearerAuth()
-    updatePayment(@Body() data: UpdatePaymentDto) {
-        return this.paymentService.updatePaymentService(data);
-    }
+  // Ruta para actualizar un pago existente
+  @Put('updatePayment/:uuid')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RolesEnum.ADMIN)
+  @ApiBearerAuth()
+  updatePayment(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+    @Body() data: UpdatePaymentDto,
+  ) {
+    return this.paymentService.updatePaymentService(uuid, data);
+  }
 
-    @Delete('deletePayment/:uuid')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolesEnum.ADMIN)
-    @ApiOperation({ summary: 'Eliminar un pago' })
-    @ApiResponse({ status: 200, description: 'Pago eliminado exitosamente' })
-    @ApiNotFoundResponse({ description: 'El pago no existe' })
-    @ApiBearerAuth()
-    deletePayment(@Param('uuid', ParseUUIDPipe) uuid: string) {
-        return this.paymentService.deletePaymentService(uuid);
-    }
+  // Ruta para eliminar un pago por su UUID
+  @Delete('deletePayment/:uuid')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RolesEnum.ADMIN)
+  @ApiBearerAuth()
+  deletePayment(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    return this.paymentService.deletePaymentService(uuid);
+  }
 }
